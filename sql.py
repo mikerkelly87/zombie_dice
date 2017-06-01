@@ -44,6 +44,18 @@ def create_cup_table():
         c.execute("CREATE TABLE cup(dice TEXT)")
 
 
+# Create a database table to keep track of the colors of dice
+# that are currently in the active player's hand
+def create_hand_table():
+    with sqlite3.connect("dice.db") as connection:
+        # Create DB cursor object
+        c = connection.cursor()
+        # Drop table first to always start a new game
+        c.execute("DROP TABLE IF EXISTS hand")
+        # Create players table
+        c.execute("CREATE TABLE hand(dice TEXT)")
+
+
 # Reset the dice in the cup
 def reset_cup():
     with sqlite3.connect("dice.db") as connection:
@@ -78,12 +90,15 @@ def draw(x):
                     break
                 row_id = row[0]
                 color = row[1]
-                print(color, "is going to be kept in the player's hand")
-                print("The ID of the row" + "(" + str(row_id) + ") in this case, is going to be deleted")
+                # Put the drawn die from the cup into the active player's hand
+                c.execute('INSERT INTO hand (dice) VALUES("{0}")'.format(color))
+                # Remove the die from the cup
+                c.execute('DELETE FROM cup WHERE rowid = {0}'.format(row_id))
 
 
 # This was put in to test the DB creation
 # create_players_table(4)
-create_cup_table()
-reset_cup()
-draw(3)
+# create_cup_table()
+# reset_cup()
+# create_hand_table()
+# draw(3)

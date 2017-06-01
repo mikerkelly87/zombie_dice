@@ -4,7 +4,7 @@
 
 import sqlite3
 from main import player1, player2, player3, player4, number_of_players, current_player
-from sql import reset_cup
+from sql import reset_cup, draw
 
 # Variables for the Dice
 starting_dice = ("Green", "Green", "Green", "Green", "Green", "Green",
@@ -19,10 +19,11 @@ red = ("Brains", "Runner", "Runner", "Shotgun", "Shotgun", "Shotgun")
 
 def roll(player):
     reset_cup()
+    # pull 3 dice at random to roll
+    # remove those 3 dice from the cup
+    draw(3)
+    # Let the user know what color dice they picked
 
-# pull 3 at random to roll
-# Let the user know what color dice they picked
-# remove those 3 dice from the cup
 # User rolls
 # for every brain add 1 to brain count
 # for every shotgun add to shotgun count
