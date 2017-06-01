@@ -65,7 +65,25 @@ def reset_cup():
             c.execute("INSERT INTO cup VALUES('Red')")
             i = i + 1
 
+
+def draw(x):
+    for i in range(0, x):
+        with sqlite3.connect("dice.db") as connection:
+            # Create DB cursor object
+            c = connection.cursor()
+            c.execute("SELECT rowid,dice FROM cup ORDER BY RANDOM() LIMIT 1;")
+            while True:
+                row = c.fetchone()
+                if row is None:
+                    break
+                row_id = row[0]
+                color = row[1]
+                print(color, "is going to be kept in the player's hand")
+                print("The ID of the row" + "(" + str(row_id) + ") in this case, is going to be deleted")
+
+
 # This was put in to test the DB creation
 # create_players_table(4)
 create_cup_table()
 reset_cup()
+draw(3)

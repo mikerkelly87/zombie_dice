@@ -45,3 +45,8 @@ Application flow
 1) Select the number of players
 2) Player 1 roll
 3) Following player rolls
+--------------------------
+SQL Stuffs
+--------------------------
+SELECT rowid,dice FROM cup ORDER BY RANDOM() LIMIT 1;
+DELETE FROM cup WHERE rowid = 10
