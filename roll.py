@@ -4,7 +4,8 @@
 
 import sqlite3
 import random
-from main import player1, player2, player3, player4, number_of_players, current_player
+from main import player1, player2, player3, player4, number_of_players
+from main import current_player
 from sql import reset_cup, draw, colors_in_hand
 
 # Variables for the Dice
@@ -17,35 +18,17 @@ green = ("Brain", "Brain", "Brain", "Runner", "Runner", "Shotgun")
 yellow = ("Brain", "Brain", "Runner", "Runner", "Shotgun", "Shotgun")
 red = ("Brain", "Runner", "Runner", "Shotgun", "Shotgun", "Shotgun")
 
-# Variables to keep track of how many Brains/Shotguns/Runners
-# the player has on their current roll
-brains = 0
-runners = 0
-shotguns = 0
-
-
-# Function to determine the outcome of rolling the dice
-# in the player's hand
-def pick_outcome():
-    for i in colors_in_hand():
-        if i == "Green":
-            print("The first die is Green")
-            outcome = random.choice(green)
-            print("It rolled a", outcome)
-            print("")
-        elif i == "Yellow":
-            print("The first die is Yellow")
-            outcome = random.choice(yellow)
-            print("It rolled a", outcome)
-            print("")
-        elif i == "Red":
-            print("The first die is Red")
-            outcome = random.choice(red)
-            print("It rolled a", outcome)
-            print("")
-
 
 def roll():
+    # Variables to keep track of how many Brains/Shotguns/Runners
+    # the player has on their current roll
+    global brains
+    global runners
+    global shotguns
+    brains = 0
+    runners = 0
+    shotguns = 0
+    hand = colors_in_hand()
     """
     For some reason reset_cup is printing colors, commenting out for now
     while developing but need to come back to it before the final test of
@@ -65,7 +48,7 @@ def roll():
     # Let the user know what color dice they picked
     print("You have the following colored dice in your hand:")
     print("")
-    hand = colors_in_hand()
+    #hand = colors_in_hand()
     print("#######")
     print(hand[0])
     print(hand[1])
@@ -73,18 +56,59 @@ def roll():
     print("#######")
     print("")
     #print("On this turn so far you have", brains, "Brains, and", shotguns,
-    #      "Shotgun blasts")
+        #"Shotgun blasts")
+    print("")
     # for every brain add 1 to brain count
     # for every shotgun add to shotgun count
     # for every runner add to runner count
     """
-    This is where I am currently stuck.
-    I need to figure out how to pass the outcomes from pick_outcome() to a
-    global variable to keep track so if there are 3 shotgun blasts the turn
-    is over, and if there are runners, make sure you draw new dice accordingly
+    Need to figure out why first/second/third is not printing in order
     """
+    for i in colors_in_hand():
+        if i == "Green":
+            print("The first die is Green")
+            outcome = random.choice(green)
+            print("It rolled a", outcome)
+            print("")
+            if outcome == "Brain":
+                brains = brains + 1
+            elif outcome == "Runner":
+                runners = runners + 1
+            elif outcome == "Shotgun":
+                shotguns = shotguns + 1
+        elif i == "Yellow":
+            print("The second die is Yellow")
+            outcome = random.choice(yellow)
+            print("It rolled a", outcome)
+            print("")
+            if outcome == "Brain":
+                brains = brains + 1
+            elif outcome == "Runner":
+                runners = runners + 1
+            elif outcome == "Shotgun":
+                shotguns = shotguns + 1
+        elif i == "Red":
+            print("The third die is Red")
+            outcome = random.choice(red)
+            print("It rolled a", outcome)
+            print("")
+            if outcome == "Brain":
+                brains = brains + 1
+            elif outcome == "Runner":
+                runners = runners + 1
+            elif outcome == "Shotgun":
+                shotguns = shotguns + 1
+    print("On this turn so far you have", brains, "Brains, and", shotguns,
+    "Shotgun blasts")
+    # If shotgun count is 3 set all counts back to zero and end turn
+    if shotguns > 2:
+        print("That's 3 shotgun blats, your turn is over")
+    else:
+        print("You still don't have 3 shotguns blasts this turn, you can keep",
+              "rolling if you would like")
 
-# If shotgun count is 3 set all counts back to zero and end turn
+
+
 # Elif ask user if they want to keep rolling
 # If user wants to keep rolling
 #  If runner count is 1 pull 2 dice at random and remove them from cup and let the user know what
@@ -96,4 +120,4 @@ def roll():
 
 
 roll()
-pick_outcome()
+#pick_outcome()
