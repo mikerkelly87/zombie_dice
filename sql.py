@@ -84,6 +84,8 @@ def draw(x):
         with sqlite3.connect("dice.db") as connection:
             # Create DB cursor object
             c = connection.cursor()
+            # Clear the hand table before drawing new dice
+            #c.execute("DELETE FROM hand")
             c.execute("SELECT rowid,dice FROM cup ORDER BY RANDOM() LIMIT 1;")
             while True:
                 row = c.fetchone()
@@ -106,24 +108,27 @@ def colors_in_hand():
         c.execute("SELECT * FROM hand WHERE rowid = 1")
         c1 = c.fetchone()
         color1 = c1[0]
-        print(color1)
+        #print(color1)
         # Second Color
         c.execute("SELECT * FROM hand WHERE rowid = 2")
         c2 = c.fetchone()
         color2 = c2[0]
-        print(color2)
+        #print(color2)
         # Third COlor
         c.execute("SELECT * FROM hand WHERE rowid = 3")
         c3 = c.fetchone()
         color3 = c3[0]
-        print(color3)
+        #print(color3)
+        hand = [color1, color2, color3]
+        return hand
+
 
 
 
 # This was put in to test the DB operations
 # create_players_table(4)
 # create_cup_table()
-# reset_cup()
+reset_cup()
 # create_hand_table()
 # draw(3)
-# colors_in_hand()
+#colors_in_hand()

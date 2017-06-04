@@ -3,6 +3,7 @@
 # Callable function for a player's turn
 
 import sqlite3
+import random
 from main import player1, player2, player3, player4, number_of_players, current_player
 from sql import reset_cup, draw, colors_in_hand
 
@@ -16,17 +17,85 @@ green = ("Brains", "Brains", "Brains", "Runner", "Runner", "Shotgun")
 yellow = ("Brains", "Brains", "Runner", "Runner", "Shotgun", "Shotgun")
 red = ("Brains", "Runner", "Runner", "Shotgun", "Shotgun", "Shotgun")
 
+# Variables to keep track of how many Brains/Shotguns/Runners
+# the player has on their current roll
+brains = 0
+runners = 0
+shotguns = 0
+
+def pick_outcome():
+    hand = colors_in_hand()
+    # For the 1st die in the user's hand, select
+    # the outcome of the roll at random
+    if hand[0] == "Green":
+        print("The first die is Green")
+        print("It rolled as a", random.choice(green))
+        print("")
+    elif hand[0] == "Yellow":
+        print("The first die is Yellow")
+        print("It rolled as a", random.choice(yellow))
+        print("")
+    elif hand[0] == "Red":
+        print("The first die is Red")
+        print("It rolled as a", random.choice(red))
+        print("")
+    # For the 2nd die in the user's hand, select
+    # the outcome of the roll at random
+    if hand[1] == "Green":
+        print("The first die is Green")
+        print("It rolled as a", random.choice(green))
+        print("")
+    elif hand[1] == "Yellow":
+        print("The first die is Yellow")
+        print("It rolled as a", random.choice(yellow))
+        print("")
+    elif hand[1] == "Red":
+        print("The first die is Red")
+        print("It rolled as a", random.choice(red))
+        print("")
+    # For the 3rd die in the user's hand, select
+    # the outcome of the roll at random
+    if hand[2] == "Green":
+        print("The first die is Green")
+        print("It rolled as a", random.choice(green))
+        print("")
+    elif hand[2] == "Yellow":
+        print("The first die is Yellow")
+        print("It rolled as a", random.choice(yellow))
+        print("")
+    elif hand[2] == "Red":
+        print("The first die is Red")
+        print("It rolled as a", random.choice(red))
+        print("")
+
 
 def roll():
-    reset_cup()
+    """
+    For some reason reset_cup is printing colors, commenting out for now
+    while developing but need to come back to it before the final test of
+    roll()
+    """
+    #reset_cup()
     # pull 3 dice at random to roll
     # remove those 3 dice from the cup
+    print("")
     print("Drawing three dice from the cup to roll with")
     draw(3)
+    print("")
+    print("......... 1")
+    print("......... 2")
+    print("......... 3")
+    print("")
     # Let the user know what color dice they picked
-    print("You have the following colored dice in your hand")
-    colors_in_hand()
-    # User rolls
+    print("You have the following colored dice in your hand:")
+    print("")
+    hand = colors_in_hand()
+    print(hand[0])
+    print(hand[1])
+    print(hand[2])
+    print("")
+
+
     """
     This is where I am currently stuck.
     I need to figure out how to pass the (color1, color2, color3) variables
@@ -49,3 +118,4 @@ def roll():
 
 
 roll()
+pick_outcome()
