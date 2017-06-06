@@ -7,7 +7,7 @@ import random
 import time
 from main import player1, player2, player3, player4, number_of_players
 from main import current_player
-from sql import reset_cup, draw, colors_in_hand, add_score
+from sql import reset_cup, draw, colors_in_hand, add_score, create_hand_table
 
 # Variables for the Dice
 starting_dice = ("Green", "Green", "Green", "Green", "Green", "Green",
@@ -29,7 +29,10 @@ def roll(player_name):
     brains = 0
     runners = 0
     shotguns = 0
+    # Put all the dice back in the cup
     reset_cup()
+    # Create the hand table
+    create_hand_table()
     # pull 3 dice at random to roll
     # remove those 3 dice from the cup
     print("")
@@ -100,7 +103,7 @@ def roll(player_name):
             print("")
             # If shotgun count is 3 set all counts back to zero and end turn
             if shotguns > 2:
-                print("That's 3 shotgun blats, your turn is over")
+                print("That's 3 shotgun blasts, your turn is over")
                 # End the turn
                 break
             # Elif ask user if they want to keep rolling
@@ -115,6 +118,12 @@ def roll(player_name):
             add_score(brains, player_name)
             break
 
+"""
+This is where I'm currently stuck, I need to be able to put dice rolled as brains
+or Shotguns to the side (maybe a new table named 'side'), then keep the runners
+and draw new dice from the cup into the hand to equal 3 combined with the leftover
+runners
+"""
 #  If runner count is 1 pull 2 dice at random and remove them from cup and let the user know what
 #  color dice they picked
 #  Elif runner count is 2 pull 1 dice at random and remove it from cup and let the user know what
