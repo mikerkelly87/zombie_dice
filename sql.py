@@ -62,6 +62,8 @@ def reset_cup():
     with sqlite3.connect("dice.db") as connection:
         # Create DB cursor object
         c = connection.cursor()
+        # Replace all the dice in the cup with the original values
+        create_cup_table()
         # Put 6 Green dice into the cup
         i = 0
         while i < 6:
@@ -146,12 +148,21 @@ def colors_in_hand():
         return hand
 
 
+# Add the brains from the current turn to the player's total score
+def add_score(x, player):
+    with sqlite3.connect("dice.db") as connection:
+        # Create the DB cursor object
+        c = connection.cursor()
+        # Add the number of brains to the player's score
+        c.execute("""UPDATE players SET score = score + ? WHERE name LIKE ?""", (x,player))
+
 
 
 # This was put in to test the DB operations
 # create_players_table(4)
 # create_cup_table()
-reset_cup()
+# reset_cup()
 # create_hand_table()
 # draw(3)
-#colors_in_hand()
+# colors_in_hand()
+# add_score(20, "mike")

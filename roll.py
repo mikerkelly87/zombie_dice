@@ -7,7 +7,7 @@ import random
 import time
 from main import player1, player2, player3, player4, number_of_players
 from main import current_player
-from sql import reset_cup, draw, colors_in_hand
+from sql import reset_cup, draw, colors_in_hand, add_score
 
 # Variables for the Dice
 starting_dice = ("Green", "Green", "Green", "Green", "Green", "Green",
@@ -20,7 +20,7 @@ yellow = ("Brain", "Brain", "Runner", "Runner", "Shotgun", "Shotgun")
 red = ("Brain", "Runner", "Runner", "Shotgun", "Shotgun", "Shotgun")
 
 
-def roll():
+def roll(player_name):
     # Variables to keep track of how many Brains/Shotguns/Runners
     # the player has on their current roll
     global brains
@@ -29,18 +29,12 @@ def roll():
     brains = 0
     runners = 0
     shotguns = 0
-    hand = colors_in_hand()
-    """
-    For some reason reset_cup is printing colors, commenting out for now
-    while developing but need to come back to it before the final test of
-    roll()
-    """
-    #reset_cup()
+    reset_cup()
     # pull 3 dice at random to roll
     # remove those 3 dice from the cup
     print("")
-    print("Drawing three dice from the cup to roll with")
     draw(3)
+    hand = colors_in_hand()
     # Let the user know what color dice they picked
     print("You have the following colored dice in your hand:")
     print("")
@@ -115,8 +109,10 @@ def roll():
                     "rolling if you would like")
                 print("")
         elif choice == "no":
-            print("Adding the Brains to your count and ending your turn")
+            print("Adding", brains,  "Brains to your count and ending your turn")
+            print("")
             # Add the number of brains to the players main count and end their turn
+            add_score(brains, player_name)
             break
 
 #  If runner count is 1 pull 2 dice at random and remove them from cup and let the user know what
@@ -124,7 +120,6 @@ def roll():
 #  Elif runner count is 2 pull 1 dice at random and remove it from cup and let the user know what
 #  color dice they picked
 #  Else reroll the 3 dice already out of the cup
-# Else add brain count to user score
 
 
-roll()
+roll("mike")
