@@ -95,12 +95,17 @@ def reset_cup():
 
 # Put all dice on the side back into the cup if the cup is empty
 def refill_cup():
-    print("Cup is empty, moving dice from the side back",
+    with sqlite3.connect("dice.db") as connection:
+        # Create DB cursor object
+        c = connection.cursor()
+        print("Cup is empty, moving dice from the side back",
           "into the cup")
-    # Move the dice from the side back into the cup while
-    # Keeping track of what was rolled in the current turn
-    c.execute("INSERT INTO cup SELECT * FROM side")
-    c.execute("DELETE FROM side")
+        # Move the dice from the side back into the cup while
+        # Keeping track of what was rolled in the current turn
+        c.execute("INSERT INTO cup SELECT * FROM side")
+        c.execute("DELETE FROM side")
+        # Need to 'VACUUM' to reindex the row IDs
+        c.execute('VACUUM')
 
 
 # Draw x amount of dice from the cup and put them into the active player's hand
@@ -239,3 +244,4 @@ def move_red():
 # colors_in_hand()
 # add_score(20, "mike")
 # create_side_table()
+# refill_cup()
