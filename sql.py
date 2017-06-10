@@ -57,6 +57,18 @@ def create_hand_table():
         c.execute("CREATE TABLE hand(dice TEXT)")
 
 
+# Create a database table to keep track of the colors of dice
+# that are put to the side from the player's hand
+def create_side_table():
+    with sqlite3.connect("dice.db") as connection:
+        # Create DB cursor object
+        c = connection.cursor()
+        # Drop table first to always start a new game
+        c.execute("DROP TABLE IF EXISTS side")
+        # Create players table
+        c.execute("CREATE TABLE side(dice TEXT)")
+
+
 # Reset the dice in the cup
 def reset_cup():
     with sqlite3.connect("dice.db") as connection:
@@ -79,6 +91,16 @@ def reset_cup():
         while i < 3:
             c.execute("INSERT INTO cup VALUES('Red')")
             i = i + 1
+
+
+# Put all dice on the side back into the cup if the cup is empty
+def refill_cup():
+    print("Cup is empty, moving dice from the side back",
+          "into the cup")
+    # Move the dice from the side back into the cup while
+    # Keeping track of what was rolled in the current turn
+    c.execute("INSERT INTO cup SELECT * FROM side")
+    c.execute("DELETE FROM side")
 
 
 # Draw x amount of dice from the cup and put them into the active player's hand
@@ -157,6 +179,56 @@ def add_score(x, player):
         c.execute("""UPDATE players SET score = score + ? WHERE name LIKE ?""", (x,player))
 
 
+# Move a Green Die from the player's hand to the side
+def move_green():
+    with sqlite3.connect("dice.db") as connection:
+        # Create the DB cursor object
+        c = connection.cursor()
+        c.execute("SELECT rowid,dice FROM hand WHERE dice = 'Green' LIMIT 1;")
+        row = c.fetchone()
+        row_id = row[0]
+        color = row[1]
+        # Put the green die from the hand to the side
+        c.execute('INSERT INTO side (dice) VALUES("{0}")'.format(color))
+        # Remove the die from the hand
+        c.execute('DELETE FROM hand WHERE rowid = {0}'.format(row_id))
+        # Need to 'VACUUM' to reindex the row IDs
+        c.execute('VACUUM')
+
+
+# Move a YellowDie from the player's hand to the side
+def move_yellow():
+    with sqlite3.connect("dice.db") as connection:
+        # Create the DB cursor object
+        c = connection.cursor()
+        c.execute("SELECT rowid,dice FROM hand WHERE dice = 'Yellow' LIMIT 1;")
+        row = c.fetchone()
+        row_id = row[0]
+        color = row[1]
+        # Put the green die from the hand to the side
+        c.execute('INSERT INTO side (dice) VALUES("{0}")'.format(color))
+        # Remove the die from the hand
+        c.execute('DELETE FROM hand WHERE rowid = {0}'.format(row_id))
+        # Need to 'VACUUM' to reindex the row IDs
+        c.execute('VACUUM')
+
+
+# Move a Red Die from the player's hand to the side
+def move_red():
+    with sqlite3.connect("dice.db") as connection:
+        # Create the DB cursor object
+        c = connection.cursor()
+        c.execute("SELECT rowid,dice FROM hand WHERE dice = 'Red' LIMIT 1;")
+        row = c.fetchone()
+        row_id = row[0]
+        color = row[1]
+        # Put the green die from the hand to the side
+        c.execute('INSERT INTO side (dice) VALUES("{0}")'.format(color))
+        # Remove the die from the hand
+        c.execute('DELETE FROM hand WHERE rowid = {0}'.format(row_id))
+        # Need to 'VACUUM' to reindex the row IDs
+        c.execute('VACUUM')
+
 
 # This was put in to test the DB operations
 # create_players_table(4)
@@ -166,3 +238,4 @@ def add_score(x, player):
 # draw(3)
 # colors_in_hand()
 # add_score(20, "mike")
+# create_side_table()
