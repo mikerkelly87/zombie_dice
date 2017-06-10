@@ -160,13 +160,5 @@ def roll(player_name):
             #  End the player's turn
             break
 
-"""
-Only thing left to do is get the refill_cup() working. Need to work out how to
-determine if the cup is empty, then the refill_cup() function will move all the
-dice from the side table to the cup table.
-The function works, just need to figure out where in the loop to call it
-"""
-
-
-
-roll("mike")
+# This was put in to test a single turn
+# roll("mike")

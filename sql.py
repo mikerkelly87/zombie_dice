@@ -41,7 +41,7 @@ def create_cup_table():
         c = connection.cursor()
         # Drop table first to always start a new game
         c.execute("DROP TABLE IF EXISTS cup")
-        # Create players table
+        # Create cup table
         c.execute("CREATE TABLE cup(dice TEXT)")
 
 
@@ -53,7 +53,7 @@ def create_hand_table():
         c = connection.cursor()
         # Drop table first to always start a new game
         c.execute("DROP TABLE IF EXISTS hand")
-        # Create players table
+        # Create player's hand table
         c.execute("CREATE TABLE hand(dice TEXT)")
 
 
@@ -65,7 +65,7 @@ def create_side_table():
         c = connection.cursor()
         # Drop table first to always start a new game
         c.execute("DROP TABLE IF EXISTS side")
-        # Create players table
+        # Create side table
         c.execute("CREATE TABLE side(dice TEXT)")
 
 
@@ -74,8 +74,10 @@ def reset_cup():
     with sqlite3.connect("dice.db") as connection:
         # Create DB cursor object
         c = connection.cursor()
-        # Replace all the dice in the cup with the original values
+        # Create the cup table
         create_cup_table()
+        # Replace all the dice in the cup with the original values
+        #
         # Put 6 Green dice into the cup
         i = 0
         while i < 6:
@@ -101,7 +103,7 @@ def refill_cup():
         print("Cup is empty, moving dice from the side back",
           "into the cup")
         # Move the dice from the side back into the cup while
-        # Keeping track of what was rolled in the current turn
+        # The global variables in roll() will keep track of what has been rolled
         c.execute("INSERT INTO cup SELECT * FROM side")
         c.execute("DELETE FROM side")
         # Need to 'VACUUM' to reindex the row IDs
@@ -110,6 +112,7 @@ def refill_cup():
 
 # Draw x amount of dice from the cup and put them into the active player's hand
 def draw(x):
+    # Let the player know how many dice are being drawn from the cup
     if x ==3:
         print("Drawing three dice from the cup to roll with")
         print("")
@@ -131,12 +134,19 @@ def draw(x):
         print("")
         print("......... 1")
         print("")
+    # The loop that will move the dice from the cup to the player's hand
     for i in range(0, x):
         with sqlite3.connect("dice.db") as connection:
             # Create DB cursor object
             c = connection.cursor()
-            # Clear the hand table before drawing new dice
-            #c.execute("DELETE FROM hand")
+            # Check to make sure there is enough dice to draw from the cup
+            c.execute("SELECT Count(*) FROM cup")
+            count = c.fetchone()
+            count_formatted = count[0]
+            # If there isn't enough dice in the cup, refill the cup from the
+            # dice on the side
+            if count_formatted < x:
+                refill_cup()
             c.execute("SELECT rowid,dice FROM cup ORDER BY RANDOM() LIMIT 1;")
             while True:
                 row = c.fetchone()
@@ -160,18 +170,17 @@ def colors_in_hand():
         c.execute("SELECT * FROM hand WHERE rowid = 1")
         c1 = c.fetchone()
         color1 = c1[0]
-        #print(color1)
         # Second Color
         c.execute("SELECT * FROM hand WHERE rowid = 2")
         c2 = c.fetchone()
         color2 = c2[0]
-        #print(color2)
         # Third COlor
         c.execute("SELECT * FROM hand WHERE rowid = 3")
         c3 = c.fetchone()
         color3 = c3[0]
-        #print(color3)
+        # Put the colors into a tuple
         hand = [color1, color2, color3]
+        # Pass the colors so roll() can see them
         return hand
 
 
@@ -185,6 +194,7 @@ def add_score(x, player):
 
 
 # Move a Green Die from the player's hand to the side
+# Any Die that wasn't rolled as a runner needs to be put to the side
 def move_green():
     with sqlite3.connect("dice.db") as connection:
         # Create the DB cursor object
@@ -201,7 +211,8 @@ def move_green():
         c.execute('VACUUM')
 
 
-# Move a YellowDie from the player's hand to the side
+# Move a Yellow Die from the player's hand to the side
+# Any Die that wasn't rolled as a runner needs to be put to the side
 def move_yellow():
     with sqlite3.connect("dice.db") as connection:
         # Create the DB cursor object
@@ -219,6 +230,7 @@ def move_yellow():
 
 
 # Move a Red Die from the player's hand to the side
+# Any Die that wasn't rolled as a runner needs to be put to the side
 def move_red():
     with sqlite3.connect("dice.db") as connection:
         # Create the DB cursor object
