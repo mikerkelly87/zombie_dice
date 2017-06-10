@@ -161,8 +161,8 @@ def roll(player_name):
             break
 
 """
-Only thing left to do is get the reset_cup() working. Need to work out how to
-determine if the cup is empty, then the reset_cup() function will move all the
+Only thing left to do is get the refill_cup() working. Need to work out how to
+determine if the cup is empty, then the refill_cup() function will move all the
 dice from the side table to the cup table
 """
 
