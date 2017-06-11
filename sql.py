@@ -6,7 +6,7 @@
 # Import sqlite module and variables from main.py
 import sqlite3
 import time
-from main import number_of_players, player1, player2, player3, player4
+#from main import number_of_players, player1, player2, player3, player4
 
 
 # Callable Function to create database with names of players
