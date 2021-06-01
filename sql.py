@@ -7,10 +7,12 @@
 import sqlite3
 import time
 #from main import number_of_players, player1, player2, player3, player4
+#from main import player1, player2, player3, player4
+
 
 
 # Callable Function to create database with names of players
-def create_players_table(num_of_players):
+def create_players_table(num_of_players, p1, p2, p3, p4):
     with sqlite3.connect("dice.db") as connection:
         # Create DB cursor object
         c = connection.cursor()
@@ -20,17 +22,17 @@ def create_players_table(num_of_players):
         c.execute("CREATE TABLE players(name TEXT, score INT)")
         # Add the player names
         if num_of_players == 2:
-            c.execute("INSERT INTO players VALUES(?, ?)", (player1, 0))
-            c.execute("INSERT INTO players VALUES(?, ?)", (player2, 0))
-        elif number_of_players == 3:
-            c.execute("INSERT INTO players VALUES(?, ?)", (player1, 0))
-            c.execute("INSERT INTO players VALUES(?, ?)", (player2, 0))
-            c.execute("INSERT INTO players VALUES(?, ?)", (player3, 0))
-        elif number_of_players == 4:
-            c.execute("INSERT INTO players VALUES(?, ?)", (player1, 0))
-            c.execute("INSERT INTO players VALUES(?, ?)", (player2, 0))
-            c.execute("INSERT INTO players VALUES(?, ?)", (player3, 0))
-            c.execute("INSERT INTO players VALUES(?, ?)", (player4, 0))
+            c.execute("INSERT INTO players VALUES(?, ?)", (p1, 0))
+            c.execute("INSERT INTO players VALUES(?, ?)", (p2, 0))
+        elif num_of_players == 3:
+            c.execute("INSERT INTO players VALUES(?, ?)", (p1, 0))
+            c.execute("INSERT INTO players VALUES(?, ?)", (p2, 0))
+            c.execute("INSERT INTO players VALUES(?, ?)", (p3, 0))
+        elif num_of_players == 4:
+            c.execute("INSERT INTO players VALUES(?, ?)", (p1, 0))
+            c.execute("INSERT INTO players VALUES(?, ?)", (p2, 0))
+            c.execute("INSERT INTO players VALUES(?, ?)", (p3, 0))
+            c.execute("INSERT INTO players VALUES(?, ?)", (p4, 0))
 
 
 # Create a database table to keep track of which dice are
@@ -199,16 +201,16 @@ def move_green():
     with sqlite3.connect("dice.db") as connection:
         # Create the DB cursor object
         c = connection.cursor()
-        c.execute("SELECT rowid,dice FROM hand WHERE dice = 'Green' LIMIT 1;")
+        c.executescript("SELECT rowid,dice FROM hand WHERE dice = 'Green' LIMIT 1;")
         row = c.fetchone()
         row_id = row[0]
         color = row[1]
         # Put the green die from the hand to the side
-        c.execute('INSERT INTO side (dice) VALUES("{0}")'.format(color))
+        c.executescript('INSERT INTO side (dice) VALUES("{0}")'.format(color))
         # Remove the die from the hand
-        c.execute('DELETE FROM hand WHERE rowid = {0}'.format(row_id))
+        c.executescript('DELETE FROM hand WHERE rowid = {0}'.format(row_id))
         # Need to 'VACUUM' to reindex the row IDs
-        c.execute('VACUUM')
+        c.executescript('VACUUM')
 
 
 # Move a Yellow Die from the player's hand to the side
@@ -222,11 +224,11 @@ def move_yellow():
         row_id = row[0]
         color = row[1]
         # Put the green die from the hand to the side
-        c.execute('INSERT INTO side (dice) VALUES("{0}")'.format(color))
+        c.executescript('INSERT INTO side (dice) VALUES("{0}")'.format(color))
         # Remove the die from the hand
-        c.execute('DELETE FROM hand WHERE rowid = {0}'.format(row_id))
+        c.executescript('DELETE FROM hand WHERE rowid = {0}'.format(row_id))
         # Need to 'VACUUM' to reindex the row IDs
-        c.execute('VACUUM')
+        c.executescript('VACUUM')
 
 
 # Move a Red Die from the player's hand to the side
@@ -240,11 +242,11 @@ def move_red():
         row_id = row[0]
         color = row[1]
         # Put the green die from the hand to the side
-        c.execute('INSERT INTO side (dice) VALUES("{0}")'.format(color))
+        c.executescript('INSERT INTO side (dice) VALUES("{0}")'.format(color))
         # Remove the die from the hand
-        c.execute('DELETE FROM hand WHERE rowid = {0}'.format(row_id))
+        c.executescript('DELETE FROM hand WHERE rowid = {0}'.format(row_id))
         # Need to 'VACUUM' to reindex the row IDs
-        c.execute('VACUUM')
+        c.executescript('VACUUM')
 
 
 # This was put in to test the DB operations

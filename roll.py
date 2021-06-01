@@ -5,8 +5,8 @@
 import sqlite3
 import random
 import time
-from main import player1, player2, player3, player4, number_of_players
-from main import current_player
+#from main import player1, player2, player3, player4, number_of_players
+#from main import current_player
 from sql import reset_cup, draw, colors_in_hand, add_score, create_hand_table
 from sql import create_side_table, move_green, move_yellow, move_red
 
@@ -161,4 +161,4 @@ def roll(player_name):
             break
 
 # This was put in to test a single turn
-# roll("mike")
+roll("john")
