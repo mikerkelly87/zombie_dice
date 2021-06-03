@@ -1,14 +1,10 @@
 #!/usr/bin/python3
 
-# Callable function for a player's turn
-
 import sqlite3
 import random
 import time
-#from main import player1, player2, player3, player4, number_of_players
-#from main import current_player
-from sql import reset_cup, draw, colors_in_hand, add_score, create_hand_table
-from sql import create_side_table, move_green, move_yellow, move_red
+from sql_functions import reset_cup, draw, colors_in_hand, add_score, create_hand_table
+from sql_functions import create_side_table, move_green, move_yellow, move_red
 
 # Variables for the Dice
 starting_dice = ("Green", "Green", "Green", "Green", "Green", "Green",
@@ -19,7 +15,6 @@ starting_dice = ("Green", "Green", "Green", "Green", "Green", "Green",
 green = ("Brain", "Brain", "Brain", "Runner", "Runner", "Shotgun")
 yellow = ("Brain", "Brain", "Runner", "Runner", "Shotgun", "Shotgun")
 red = ("Brain", "Runner", "Runner", "Shotgun", "Shotgun", "Shotgun")
-
 
 # Roll function for a player's turn
 def roll(player_name):
@@ -159,6 +154,3 @@ def roll(player_name):
             add_score(brains, player_name)
             #  End the player's turn
             break
-
-# This was put in to test a single turn
-roll("john")

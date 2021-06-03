@@ -3,21 +3,9 @@
 # Main flow of the application
 
 # Import functions
-from sql import create_players_table
-#from roll import roll
-
-
-# Variables
-global number_of_players
-global player1
-global player2
-global player3
-global player4
-number_of_players = 0
-player1 = ""
-player2 = ""
-player3 = ""
-player4 = ""
+from sql_functions import *
+from roll import roll
+from turn import *
 
 # Game setup function
 def game_setup():
@@ -31,14 +19,14 @@ def game_setup():
             player1 = input("Please enter the name of player 1 and press Enter: ")
             player2 = input("Please enter the name of player 2 and press Enter: ")
             create_players_table(int(2), player1, player2, None, None)
-            #return number_of_players, player1, player2
+            player_turn(int(2), player1, player2, None, None)
             break
         elif number_of_players == 3:
             player1 = input("Please enter the name of player 1 and press Enter: ")
             player2 = input("Please enter the name of player 2 and press Enter: ")
             player3 = input("Please enter the name of player 3 and press Enter: ")
             create_players_table(int(3), player1, player2, player3, None)
-            #return number_of_players, player1, player2, player3
+            player_turn(int(3), player1, player2, player3, None)
             break
         elif number_of_players == 4:
             player1 = input("Please enter the name of player 1 and press Enter: ")
@@ -46,7 +34,7 @@ def game_setup():
             player3 = input("Please enter the name of player 3 and press Enter: ")
             player4 = input("Please enter the name of player 4 and press Enter: ")
             create_players_table(int(4), player1, player2, player3, player4)
-            #return number_of_players, player1, player2, player3, player4
+            player_turn(int(4), player1, player2, player3, player4)
             break
         else:
             print("Please enter a number 2-4 and press Enter")
