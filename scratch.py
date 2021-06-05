@@ -26,6 +26,7 @@ get_player_score("blake")
 # If everything works move the player_turn() function to it's own file
 # Test as is with 2, 3, and 4 players.
 # If everything still works cleanup variables that might not need to exist
+# make the application not bomb if you enter something unexpected
 
 
 # moved variables
