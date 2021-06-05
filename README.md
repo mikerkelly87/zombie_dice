@@ -22,7 +22,7 @@ If you rolled any Runners in your prior roll you
 have to keep those and only pull dice out of the 
 cup to equal 3 dice to roll  
 (ex1: if you had rolled 3 Runners you will roll 
-those same 3 dice and not pull out any new dice)  
+those same 3 dice and not draw any new dice from the cup)  
 (ex2: if you rolled 1 Runner you will roll that 
 same die along with 2 new dice drawn from the cup)  
 If you decide you don't want to risk rolling 
