@@ -34,8 +34,8 @@ other player takes their turn.
 This continues until a player reaches 13 Brains 
 declaring them the winner.
 
-## Caveats
-If player 1 gains 13 Brains he can choose to keep 
+## Caveats (this still hasn't been coded yet)
+If player 1 gains 13 Brains they can choose to keep 
 rolling to add to that total. Player 1 may want to 
 do this because the players following him will also 
 get a chance to roll as well. No matter which 
@@ -49,19 +49,19 @@ tie breaker round, this continues until there is a
 definite winner.
 
 ## Notable Mentions
-There are 3 colors of dice, Green, Yellow, and Red.
+There are 3 colors of dice, Green, Yellow, and Red.  
 There are 6 Green dice, 4 Yellow dice, and 3 Red 
-dice.
+dice.  
 A Green die has 3 Brains, 2 Runners, and 1 Shotgun 
-Blast on it's six sides.
+Blast on it's six sides.  
 A Yellow die has 2 Brains, 2 Runners, and 2 Shotgun 
-Blasts on it's six sides.
+Blasts on it's six sides.  
 A Red die has 1 Brain, 2 Runners, and 3 Shotgun 
-Blasts on it's six sides.
+Blasts on it's six sides.  
 This is worth noting because if you have rolled 6 
 Brains and 2 Shotgun Blast in your turn so far over 
 6 Green dice and 2 Yellow Dice, you may want to end 
-your turn as the remaining dice in the cup have a 
+your turn as the remaining dice in the cup (Red) have a 
 higher probability of giving you a 3rd Shotgun Blast.
 
 If you run out of dice in the cup but want to keep 
