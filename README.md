@@ -7,30 +7,30 @@ with Python
 ## Rules
 
 The first player will pick 3 of the 13 dice from 
-random out of the cup.
+random out of the cup.  
 The player will roll the dice, each die has 3 
-outcomes, Brain, Shotgun Blast, or Runner.
+outcomes, Brain, Shotgun Blast, or Runner.  
 The player (or application in this case) will count 
-up the number of each.
-Brains will count towards your overall score.
-A Runner doesn't count towards or against you.
+up the number of each.  
+Brains will count towards your overall score.  
+A Runner doesn't count for or against you.  
 If you get 3 shotgun blasts in a single turn you 
-lose any Brains you would have gained that turn.
+lose any Brains you would have gained that turn.  
 After you count up your numbers you can choose to 
-roll again or pass to the next player.
+roll again or pass to the next player.  
 If you rolled any Runners in your prior roll you 
 have to keep those and only pull dice out of the 
-cup to equal 3 dice to roll 
+cup to equal 3 dice to roll  
 (ex1: if you had rolled 3 Runners you will roll 
-those same 3 dice and not pull out any new dice)
+those same 3 dice and not pull out any new dice)  
 (ex2: if you rolled 1 Runner you will roll that 
-same die plus 2 new dice drawn from the cup)
+same die along with 2 new dice drawn from the cup)  
 If you decide you don't want to risk rolling 
-anymore Shotgun Blasts you count up the total 
+anymore Shotgun Blasts, you count up the total 
 number of Brains you gathered and add that to 
-your score.
+your score.  
 Player 2 follows this same process, then every 
-other player takes their turn.
+other player takes their turn.  
 This continues until a player reaches 13 Brains 
 declaring them the winner.
 
